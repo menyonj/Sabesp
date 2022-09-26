@@ -15,6 +15,38 @@ Feature: Acessando Ambiente
     Given estou na tela inicial da AGV
     When informar login com senha inválido e confirmar
     Then o sistema deve retornar mensagem de usuario ou senha incorreto 
+_________________________________________________________________________________________
+
+parcelamento.feature 
+
+
+Feature: Validando Alteração de Status quando o cliente informar o pagamento manualmente
+
+    # Eu como usuário, desejo realizar o parcelamento de todas as faturas com status em aberto ou em atraso
+    # quando eu clicar em "Parcelar Faturas"
+
+    Scenario: Validando fluxo de parcelamento de faturas
+    Given estou logado na AGV    
+    When clicar em Parcelar faturas    
+    Then o sistemas deverá retornar mensagem de parcelamento realizado com sucesso
+
+
+__________________________________________________________________________________________
+
+2via.NãoRecebeu. feature
+
+
+Feature: Visualizando a Segunda Via de Fatura quando clicar em Nao Recebeu
+
+    Scenario: Visualizando 2via de fatura clicando em Nao Recebeu
+    Given estou logado na AGV
+    And selecionar uma fatura, clicando no checkbox
+    When clicar em Visualizar 2via de Fatura
+    And na sequencia clicar em Nao Recebeu
+    Then ao clicar em Prosseguir, deverá ser feito um download automatico e apresentar tela de sucesso.
+
+____________________________________________________________________________________________
+
 
 
 
