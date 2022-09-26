@@ -1,0 +1,24 @@
+/// <reference types="cypress" />
+
+/* global Then, When, Given */
+
+When('clicar em Parcelar faturas', () => {
+  cy.contains('Parcelar faturas').click()
+  cy.wait(2000)
+  cy.get(
+    '#modal-fatura-alerta > .modal-dialog > .modal-content > .modal-header > .close > span'
+  ).click()
+  cy.contains('Prosseguir').click()
+})
+
+Then(
+  'o sistemas deverá retornar mensagem de parcelamento realizado com sucesso',
+  () => {
+    cy.wait(8000)
+    // Nesta Etapa Sugerimos que informe a data manualmente, devido a problemas de busca dos campos, será necessário uma refatração deste cenário, porém devido ao time, é RECOMENDÁVEL que a quantidade de parcelas seja selecionada MANUALMENTE.
+    cy.wait(18000)
+    cy.scrollTo('bottom')
+    cy.contains('Prosseguir').click()
+    cy.get('.ml-1').should('have.text', 'Li e concordo com o ')
+  }
+)

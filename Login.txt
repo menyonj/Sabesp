@@ -1,0 +1,64 @@
+/// <reference types="cypress" />
+
+/* global Then, When, Given */
+
+/// Cenário de Teste Login com Sucesso
+
+Given('estou na tela inicial da AGV', () => {
+  cy.visit('https://nshom-agenciavirtual.sabesp.com.br/minhas-faturas')
+  ///cy.visit('https://agenciavirtual.sabesp.com.br/minhas-faturas')
+})
+When('informar login com dados validos e confirmar', () => {
+  cy.get('#_br_com_engdb_agv_login_portlet_LoginPortlet_login1').type(
+    '29923089860'
+  )
+  cy.get('#_br_com_engdb_agv_login_portlet_LoginPortlet_password1').type(
+    'sabesp01{enter}'
+  )
+})
+
+Then(
+  'o sistema realiza meu login com sucesso me autenticando na pagina',
+  () => {
+    cy.get('.alert').should('be.visible')
+  }
+)
+
+/// Cenário de Teste Login com CPF Incorreto
+
+When('informar login com cpf inválido e confirmar', () => {
+  cy.get('#_br_com_engdb_agv_login_portlet_LoginPortlet_login1').type(
+    '36679135890'
+  )
+  cy.get('#_br_com_engdb_agv_login_portlet_LoginPortlet_password1').type(
+    'sabesp01{enter}'
+  )
+})
+
+Then('o sistema deve retornar mensagem de cpf nao cadastrado', () => {
+  cy.get('.alert').should(
+    'have.text',
+    '\n\t\t\t\n\t\t\t\t\n\n\t\t\t\tFechar\n\t\t\t\n\n\t\t\t\n\t\t\t\t\n\t\t\t\t\t\n\t\t\t\t\n\t\t\t\n\n\t\t\tErro:CPF inválido\n\t\t\n\t\t\t\n\t\t\t\t\n\n\t\t\t\tFechar\n\t\t\t\n\n\t\t\t\n\t\t\t\t\n\t\t\t\t\t\n\t\t\t\t\n\t\t\t\n\n\t\t\tErro:CPF inválido\n\t\t\n\t\t\t\n\t\t\t\t\n\n\t\t\t\tFechar\n\t\t\t\n\n\t\t\t\n\t\t\t\t\n\t\t\t\t\t\n\t\t\t\t\n\t\t\t\n\n\t\t\tErro:CPF inválido\n\t\t'
+  )
+})
+
+/// Cenário de Teste Login com Senha Incorreta
+
+When('informar login com senha inválido e confirmar', () => {
+  cy.get('#_br_com_engdb_agv_login_portlet_LoginPortlet_login1').type(
+    '16965639849'
+  )
+  cy.get('#_br_com_engdb_agv_login_portlet_LoginPortlet_password1').type(
+    '1234567890{enter}'
+  )
+  cy.wait(6000)
+})
+
+Then('o sistema deve retornar mensagem de usuario ou senha incorretos', () => {
+  cy.get('.alert')
+    .should('be.visible')
+    .should(
+      'have.text',
+      '\n\t\t\t\n\t\t\t\t\n\n\t\t\t\tFechar\n\t\t\t\n\n\t\t\t\n\t\t\t\t\n\t\t\t\t\t\n\t\t\t\t\n\t\t\t\n\n\t\t\tErro:Usuário/Senha inválidos\n\t\t\n\t\t\t\n\t\t\t\t\n\n\t\t\t\tFechar\n\t\t\t\n\n\t\t\t\n\t\t\t\t\n\t\t\t\t\t\n\t\t\t\t\n\t\t\t\n\n\t\t\tErro:Usuário/Senha inválidos\n\t\t\n\t\t\t\n\t\t\t\t\n\n\t\t\t\tFechar\n\t\t\t\n\n\t\t\t\n\t\t\t\t\n\t\t\t\t\t\n\t\t\t\t\n\t\t\t\n\n\t\t\tErro:Usuário/Senha inválidos\n\t\t'
+    )
+})

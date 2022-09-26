@@ -1,0 +1,58 @@
+/// <reference types="cypress" />
+
+/* global Then, When, Given */
+
+/// Cenário de Teste Visualizando a Segunda Via de Fatura clicando em Nao Recebeu
+
+Given('estou logado na AGV', () => {
+  cy.visit('https://nshom-agenciavirtual.sabesp.com.br/minhas-faturas')
+  ///cy.visit('https://agenciavirtual.sabesp.com.br/minhas-faturas')
+  cy.get('#_br_com_engdb_agv_login_portlet_LoginPortlet_login1').type(
+    '00036763403'
+  )
+  cy.get('#_br_com_engdb_agv_login_portlet_LoginPortlet_password1').type(
+    'sabesp01{enter}'
+  )
+  cy.contains('Prosseguir').click()
+})
+
+And('selecionar uma fatura, clicando no checkbox', () => {
+  cy.get('id_9100699773410').click()
+})
+
+When('clicar em Visualizar 2via de Fatura', () => {
+  cy.contains('Visualizar 2ª via da fatura').click()
+})
+
+And('na sequencia clicar em Nao Recebeu', () => {
+  cy.contains('Não recebeu').click()
+  cy.wait(5000)
+})
+
+Then(
+  'ao clicar em Prosseguir, deverá ser feito um download automatico e apresentar tela de sucesso',
+  () => {
+    cy.contains('Prosseguir').click()
+    cy.wait(15000)
+    cy.get(':nth-child(2) > .col-12 > span > b')
+      .should('be.visible')
+      .should(
+        'have.text',
+        'Sua solicitação de Segunda via de fatura foi concluída.'
+      )
+  }
+)
+
+/// Cenário de Teste Visualizando a Segunda Via de Fatura clicando em Perdeu/Danificou
+
+And('na sequencia clicar em Perdeu Danificou', () => {
+  cy.contains('Perdeu/Danificou').click()
+  cy.wait(5000)
+})
+
+/// Cenário de Teste Visualizando a Segunda Via de Fatura clicando em Recebeu, mas não está com a fatura
+
+And('na sequencia clicar em Recebeu, mas não está com a fatura', () => {
+  cy.contains('Recebeu, mas não está com a fatura').click()
+  cy.wait(5000)
+})
