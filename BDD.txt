@@ -1,0 +1,20 @@
+Login :
+Feature: Acessando Ambiente
+
+    Scenario: Login com usuario valido
+    Given estou na tela inicial da AGV
+    When informar login com dados validos e confirmar
+    Then o sistema realiza meu login com sucesso me autenticando na pagina
+
+    Scenario: Login com cpf invalido
+    Given estou na tela inicial da AGV
+    When informar login com cpf inválido e confirmar
+    Then o sistema deve retornar mensagem de cpf nao cadastrado
+
+    Scenario: Login com senha invalido
+    Given estou na tela inicial da AGV
+    When informar login com senha inválido e confirmar
+    Then o sistema deve retornar mensagem de usuario ou senha incorreto 
+
+
+
